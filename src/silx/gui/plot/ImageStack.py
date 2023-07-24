@@ -69,7 +69,7 @@ class _PlotWithWaitingLabel(qt.QWidget):
                 self.join(2)
 
     def __init__(self, parent):
-        super(_PlotWithWaitingLabel, self).__init__(parent=parent)
+        super().__init__(parent=parent)
         self._autoResetZoom = True
         layout = qt.QStackedLayout(self)
         layout.setStackingMode(qt.QStackedLayout.StackAll)
@@ -85,7 +85,7 @@ class _PlotWithWaitingLabel(qt.QWidget):
         self.updateThread.start()
 
     def close(self) -> bool:
-        super(_PlotWithWaitingLabel, self).close()
+        super().close()
         self.stopUpdateThread()
 
     def stopUpdateThread(self):
@@ -133,7 +133,7 @@ class _HorizontalSlider(HorizontalSliderWithBrowser):
     sigCurrentUrlIndexChanged = qt.Signal(int)
 
     def __init__(self, parent):
-        super(_HorizontalSlider, self).__init__(parent=parent)
+        super().__init__(parent=parent)
         #  connect signal / slot
         self.valueChanged.connect(self._urlChanged)
 
@@ -198,7 +198,7 @@ class _ToggleableUrlSelectionTable(qt.QWidget):
     """Signal emitted when the active/current url change"""
 
     def __init__(self, parent=None) -> None:
-        qt.QWidget.__init__(self, parent)
+        super().__init__(parent)
         self.setLayout(qt.QGridLayout())
         self._toggleButton = qt.QPushButton(parent=self)
         self.layout().addWidget(self._toggleButton, 0, 2, 1, 1)
@@ -249,7 +249,7 @@ class UrlLoader(qt.QThread):
     Thread use to load DataUrl
     """
     def __init__(self, parent, url):
-        super(UrlLoader, self).__init__(parent=parent)
+        super().__init__(parent=parent)
         assert isinstance(url, DataUrl)
         self.url = url
         self.data = None
@@ -276,7 +276,7 @@ class ImageStack(qt.QMainWindow):
     """Signal emitted when the current url change"""
 
     def __init__(self, parent=None) -> None:
-        super(ImageStack, self).__init__(parent)
+        super().__init__(parent)
         self.__n_prefetch = ImageStack.N_PRELOAD
         self._loadingThreads = []
         self.setWindowFlags(qt.Qt.Widget)
@@ -312,7 +312,7 @@ class ImageStack(qt.QMainWindow):
     def close(self) -> bool:
         self._freeLoadingThreads()
         self._plot.close()
-        super(ImageStack, self).close()
+        super().close()
 
     def setUrlLoaderClass(self, urlLoader: typing.Type[UrlLoader]) -> None:
         """
